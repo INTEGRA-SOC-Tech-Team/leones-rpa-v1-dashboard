@@ -1,0 +1,96 @@
+/* Reset completo para eliminar márgenes y paddings por defecto */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Altura completa del root SIN scroll horizontal */
+html, body, #root {
+  min-height: 100vh; /* Cambiar de height a min-height */
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  width: 100%;
+  overflow-x: hidden; /* Previene scroll horizontal */
+  background-color: #ffffff; /* Fondo blanco por defecto */
+}
+
+/* Contenedor principal de la app */
+.app-container {
+  width: 100%;
+  min-height: 100vh; /* Asegurar que cubra toda la pantalla */
+  overflow-x: hidden;
+  background-color: #ffffff; /* Fondo blanco */
+}
+
+/* Asegurar que todos los contenedores principales tengan fondo */
+.main-content {
+  min-height: calc(100vh - 60px); /* Restar altura del navbar */
+  background-color: #ffffff;
+  width: 100%;
+}
+
+/* Para componentes que podrían mostrar fondo negro */
+.container-fluid, .container {
+  background-color: inherit;
+}
+
+/* Forzar que el navbar ocupe todo el ancho SIN scroll horizontal */
+.navbar {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Alternative approach - usando position para forzar full width */
+.full-width-navbar {
+  width: 100% !important;
+  position: relative;
+  left: 0;
+  right: 0;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Forzar full width de navbar y contenedores */
+.full-width {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Caja login */
+.login-box {
+  max-width: 400px;
+}
+
+/* Colores corporativos SOC */
+.text-primary {
+  color: #046B4B !important;
+}
+
+.bg-primary {
+  background-color: #046B4B !important;
+}
+
+.btn-success {
+  background-color: #046B4B;
+  border-color: #046B4B;
+}
+.btn-success:hover {
+  background-color: #03563B;
+  border-color: #03563B;
+}
+
+/* Tabla full width */
+.table-responsive {
+  width: 100% !important;
+}
+
+/* Dashboard padding */
+.dashboard-container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
