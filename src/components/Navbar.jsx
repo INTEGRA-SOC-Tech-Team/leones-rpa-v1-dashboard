@@ -1,19 +1,22 @@
 function Navbar({ onLogout }) {
   return (
     <nav 
-      className="navbar navbar-expand-lg navbar-dark w-100 full-width-navbar" 
-      style={{ backgroundColor: "#046B4B" }}
+      className="navbar navbar-expand-lg navbar-dark w-100" 
+      style={{ backgroundColor: "#046B4B", padding: "5px 0" }}
     >
-      <div className="container-fluid px-3">
-        <a className="navbar-brand d-flex align-items-center" href="#">
+      <div className="container-fluid px-4">
+        <a className="navbar-brand d-flex align-items-center" href="#" style={{ margin: 0 }}>
           <img
-            src="/logo.jpg"
+            src="/nl.png"
             alt="Logo"
-            width="62"
-            height="40"
-            className="me-2"
+            style={{ 
+              height: '70px',
+              width: 'auto',
+              objectFit: 'contain',
+              marginLeft : '-40px'
+            }}
+            className="p-2"
           />
-          Leones Dashboard
         </a>
         <button
           onClick={onLogout}
