@@ -3,10 +3,40 @@ import React, { useState } from "react";
 function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onLogin(username, password);
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://34.60.14.221:3011/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Guardar usuario en localStorage
+        localStorage.setItem('usuario', JSON.stringify(data.usuario));
+        
+        // Llamar a la función onLogin
+        onLogin(data.usuario);
+      } else {
+        setError(data.error || 'Error al iniciar sesión');
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      setError('Error de conexión con el servidor');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -20,15 +50,24 @@ function Login({ onLogin }) {
               <img src="/logo.jpg" alt="Logo SOC" width="50" className="mb-2" />
               <h2 className="text-primary fw-bold">SOC | Leones Dashboard</h2>
             </div>
+            
+            {error && (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            )}
+
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label className="form-label">Usuario</label>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="admin"
+                  placeholder="Ingresa tu usuario"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  required
+                  disabled={loading}
                 />
               </div>
               <div className="mb-3">
@@ -36,13 +75,26 @@ function Login({ onLogin }) {
                 <input
                   type="password"
                   className="form-control"
-                  placeholder="broker"
+                  placeholder="Ingresa tu contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
+                  disabled={loading}
                 />
               </div>
-              <button type="submit" className="btn btn-success w-100">
-                Ingresar
+              <button 
+                type="submit" 
+                className="btn btn-success w-100"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Ingresando...
+                  </>
+                ) : (
+                  'Ingresar'
+                )}
               </button>
             </form>
           </div>

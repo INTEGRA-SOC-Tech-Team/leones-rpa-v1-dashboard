@@ -1,19 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import "./App.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
 
-  const handleLogin = (username, password) => {
-    if (username === "admin" && password === "broker") {
+  // Verificar si hay una sesión guardada al cargar
+  useEffect(() => {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    if (usuarioGuardado) {
+      setUser(JSON.parse(usuarioGuardado));
       setIsLoggedIn(true);
-      setUser(username);
-    } else {
-      alert("Credenciales incorrectas");
     }
+  }, []);
+
+  const handleLogin = (usuario) => {
+    setIsLoggedIn(true);
+    setUser(usuario);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('usuario');
+    setIsLoggedIn(false);
+    setUser(null);
   };
 
   return (
@@ -21,7 +32,7 @@ function App() {
       {!isLoggedIn ? (
         <Login onLogin={handleLogin} />
       ) : (
-        <Dashboard user={user} />
+        <Dashboard user={user} onLogout={handleLogout} />
       )}
     </div>
   );
