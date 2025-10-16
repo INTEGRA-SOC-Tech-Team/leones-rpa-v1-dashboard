@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import RecordsTable from "./RecordsTable";
 import Navbar from "./Navbar";
 
-function Dashboard({ user }) {
+function Dashboard({ user, onLogout }) {
   const [records, setRecords] = useState([]);
   const [filter, setFilter] = useState("");
   const [loading, setLoading] = useState(true);
@@ -105,7 +105,7 @@ function Dashboard({ user }) {
 
   return (
   <div className="dashboard-container d-flex flex-column min-vh-100 full-width">
-    <Navbar onLogout={() => window.location.reload()} />
+    <Navbar onLogout={onLogout} />
     <div className="container-fluid my-4 full-width p-3">
       <h2 className="fw-bold mb-3 text-primary ps-4">Solicitudes de Crédito Leones Hipotecarios | RPA</h2>
       <div className="mb-3 w-50 p-4 pt-2 pb-2">
