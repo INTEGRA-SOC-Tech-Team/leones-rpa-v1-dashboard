@@ -1,3 +1,5 @@
+import nvlogo from '../assets/nl.png';
+
 function Navbar({ onLogout }) {
   return (
     <nav 
@@ -7,7 +9,7 @@ function Navbar({ onLogout }) {
       <div className="container-fluid px-4">
         <a className="navbar-brand d-flex align-items-center" href="#" style={{ margin: 0 }}>
           <img
-            src="/nl.png"
+            src={nvlogo}
             alt="Logo"
             style={{ 
               height: '70px',
